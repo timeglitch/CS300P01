@@ -9,7 +9,7 @@
 //
 //////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
 //
-// Partner Name:    Peter Fosterrrrrrrrrrrrrrrrr
+// Partner Name:    Peter Foster
 // Partner Email:   prfoster@wisc.edu
 // Partner Lecturer's Name: Jeff Nyhoff
 // 
