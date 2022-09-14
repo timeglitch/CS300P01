@@ -1,10 +1,36 @@
-// File header comes Here
-
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Vending Machine
+// Course:   CS 300 Fall 2022
+//
+// Author:   Frank Zhang
+// Email:    fjzhang@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name:    Peter Foster
+// Partner Email:   prfoster@wisc.edu
+// Partner Lecturer's Name: Jeff Nyhoff
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   _X_ Write-up states that pair programming is allowed for this assignment.
+//   _X_ We have both read and understand the course Pair Programming Policy.
+//   _X_ We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons:         (identify each by name and describe how they helped)
+// Online Sources:  (identify each by URL and describe how it helped)
+//
+///////////////////////////////////////////////////////////////////////////////
 // Below is a javadoc class header to complete
 /**
  * Vends and machinees
  * 
  * @author Frank Zhang
+ * @author Peter Foster
+ * 
  *
  */
 public class VendingMachine {
@@ -25,14 +51,18 @@ public class VendingMachine {
    * @param itemsCount     number of items in the vending machine
    * @return the size of the vending machine after trying to add the new item
    */
-  public static int addItem(String description, String expirationDate, String[][] items,
-      int itemsCount) {
+  public static int addItem(String description, String expirationDate, String[][] items, int itemsCount) {
       
-    if ( itemsCount == items.length) return itemsCount;
+    if ( itemsCount == items.length ) {
+      return itemsCount;
+    }
     // int date = Integer.parseInt(expirationDate);
+    String[] temp = new String[2];
+    temp[0] = description;
+    temp[1] = expirationDate;
 
-    items[itemsCount][0] = description;
-    items[itemsCount][1] = expirationDate;
+    items[itemsCount] = temp;
+
 
     return itemsCount + 1; 
   }
@@ -109,8 +139,7 @@ public class VendingMachine {
     for (int i = location; i < itemsCount; i++) {
       items[i] = items[i + 1];
     }
-    items[itemsCount - 1][0] = null;
-    items[itemsCount - 1][1] = null;
+    items[itemsCount - 1] = null;
     return itemsCount - 1;
   }
 

@@ -136,8 +136,15 @@ public class VendingMachineTester {
     //define vending machine
     String[][] items = new String[][] {{"Water", "15"}, {"Chocolate", "10"}, {"Juice", "20"}, null, null, null};
     int itemsCount = 3;
-    
+    if (VendingMachine.containsItem("Water", items, itemsCount) != true) {
+      return false;
 
+    }
+
+    if (VendingMachine.containsItem("bacon", items, itemsCount) == true) {
+      return false;
+
+    }
     return true; // no bug detected
   }
 
