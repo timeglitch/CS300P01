@@ -408,14 +408,25 @@ public class VendingMachineTester {
     // Basic test
     {
       String[][] items = new String[][] {{"Water", "50"}, {"Soda", "60"}, {"Cookies", "10"},
-          {"Chips", "20"}, {"Soda", "100"}, {"Coke", "30"}, {"Soda", "20"}};
+          {"Chips", "20"}, {"Soda", "100"}, {"Coke", "30"}, {"Noodles", "20"}};
       int itemsCount = 7;
       // check the correctness of the output
-      if (!(VendingMachine.removeNextItem("Soda", items, itemsCount) == 6)) {
+      if (!(VendingMachine.removeNextItem("Coke", items, itemsCount) == 6)) {
         System.out.println("testRemoveNextItem(). Problem detected: Array size ERRONEOUS.");
         return false;
       }
 
+      // Check to see if array was shifted
+      if (!(items[5][0].equals("Noodles") && (items[5][1].equals("20")))) {
+        System.out.println("testGetItemOccurrences. Problem detected: Your removeNextItem shifted"
+            + " your array incorrectly!");
+        return false;
+      }
+      if (items[6] != null) {
+        System.out.println("testGetItemOccurrences. Problem detected: Your removeNextItem shifted"
+            + " your array incorrectly!");
+        return false;
+      }
     }
 
     return true; // default return statement to let this incomplete code compiles with no errors.
