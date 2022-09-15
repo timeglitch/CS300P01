@@ -1,32 +1,32 @@
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title:    Vending Machine
-// Course:   CS 300 Fall 2022
+// Title: Vending Machine
+// Course: CS 300 Fall 2022
 //
-// Author:   Frank Zhang
-// Email:    fjzhang@wisc.edu
+// Author: Frank Zhang
+// Email: fjzhang@wisc.edu
 // Lecturer: Mouna Kacem
 //
 //////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
 //
-// Partner Name:    Peter Foster
-// Partner Email:   prfoster@wisc.edu
+// Partner Name: Peter Foster
+// Partner Email: prfoster@wisc.edu
 // Partner Lecturer's Name: Jeff Nyhoff
-// 
+//
 // VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
-//   _X_ Write-up states that pair programming is allowed for this assignment.
-//   _X_ We have both read and understand the course Pair Programming Policy.
-//   _X_ We have registered our team prior to the team registration deadline.
+// _X_ Write-up states that pair programming is allowed for this assignment.
+// _X_ We have both read and understand the course Pair Programming Policy.
+// _X_ We have registered our team prior to the team registration deadline.
 //
 ///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
 //
-// Persons:         (identify each by name and describe how they helped)
-// Online Sources:  (identify each by URL and describe how it helped)
+// Persons: None
+// Online Sources: None
 //
 ///////////////////////////////////////////////////////////////////////////////
 // Below is a javadoc class header to complete
 /**
- * Vends and machinees
+ * Vends and machines
  * 
  * @author Frank Zhang
  * @author Peter Foster
@@ -51,20 +51,15 @@ public class VendingMachine {
    * @param itemsCount     number of items in the vending machine
    * @return the size of the vending machine after trying to add the new item
    */
-  public static int addItem(String description, String expirationDate, String[][] items, int itemsCount) {
-      
-    if ( itemsCount == items.length ) {
+  public static int addItem(String description, String expirationDate, String[][] items,
+      int itemsCount) {
+
+    if (itemsCount == items.length) {
       return itemsCount;
     }
-    // int date = Integer.parseInt(expirationDate);
-    String[] temp = new String[2];
-    temp[0] = description;
-    temp[1] = expirationDate;
-
-    items[itemsCount] = temp;
-
-
-    return itemsCount + 1; 
+    // Creates new item object @ location of first available null (itemsCount index location)
+    items[itemsCount] = new String[] {description, expirationDate};
+    return itemsCount + 1;
   }
 
   /**
@@ -83,10 +78,11 @@ public class VendingMachine {
    *         indexes 0..itemsCount-1, the method returns "ERROR INVALID INDEX"
    */
   public static String getItemAtIndex(int index, String[][] items, int itemsCount) {
-    if (index > itemsCount - 1) return "ERROR INVALID INDEX";
+    if (index > itemsCount - 1)
+      return "ERROR INVALID INDEX";
     String itemname = items[index][0];
     String date = items[index][1];
-    return itemname + " (" + date + ")"; // default return statement added to avoid compiler errors. Feel free to change it.
+    return itemname + " (" + date + ")";
   }
 
   /**
@@ -103,7 +99,7 @@ public class VendingMachine {
    */
   public static int getIndexNextItem(String description, String[][] items, int itemsCount) {
     int index = -1;
-    int date = 100000000; //arbitrarily large number
+    int date = Integer.MAX_VALUE; // arbitrarily large number
     // If the vending machine contains more than one item with the given description,
     // return the index o the one with the smallest expiration date.
     for (int i = 0; i < itemsCount; i++) {
@@ -113,7 +109,7 @@ public class VendingMachine {
           index = i;
           date = expdate;
         }
-      }      
+      }
     }
     return index; // DONE
   }
@@ -128,22 +124,23 @@ public class VendingMachine {
    * @param items       array storing items within a vending machine
    * @param itemsCount  (size) number of items stored in the vending machine
    * @return size of the vending machine after removing the item with the given description and the
-   *         smallest expiration date. If no match found, this method must return the provided 
+   *         smallest expiration date. If no match found, this method must return the provided
    *         itemsCount without making any change to the contents of the vending machine.
    */
   public static int removeNextItem(String description, String[][] items, int itemsCount) {
     int location = getIndexNextItem(description, items, itemsCount);
+
     if (location == -1) {
       return itemsCount;
     }
     for (int i = location; i < itemsCount; i++) {
-      items[i] = items[i + 1];
+      //items[i] = items[i + 1]; SEE ERROR OUT OF BOUNDS  SEE ERROR OUT OF BOUNDS  SEE ERROR OUT OF BOUNDS  SEE ERROR OUT OF BOUNDS  SEE ERROR OUT OF BOUNDS
     }
     items[itemsCount - 1] = null;
     return itemsCount - 1;
   }
 
-  
+
 
   /**
    * Returns the number of occurrences of an item with a given description within the vending
@@ -164,9 +161,9 @@ public class VendingMachine {
       if (description.equals(items[i][0])) {
         counter++;
       }
-      
+
     }
-    return counter; //DONE
+    return counter; // DONE
   }
 
   /**
@@ -181,7 +178,7 @@ public class VendingMachine {
    * @return true if there is a match with description in the vending machine, false otherwise
    */
   public static boolean containsItem(String description, String[][] items, int itemsCount) {
-    return getItemOccurrences(description, items, itemsCount) > 0; //DONE
+    return getItemOccurrences(description, items, itemsCount) > 0; // DONE
   }
 
   /**
@@ -203,10 +200,10 @@ public class VendingMachine {
     int date = Integer.parseInt(expirationDate);
 
     for (int i = 0; i < itemsCount; i++) {
-      if (description.equals(items[i][0]) && (Integer.parseInt(items[i][1])>= date)) {
+      if (description.equals(items[i][0]) && (Integer.parseInt(items[i][1]) >= date)) {
         counter++;
       }
-      
+
     }
     return counter;
   }
@@ -216,8 +213,8 @@ public class VendingMachine {
    * contains the description or item name followed by one the number of occurrences of the item
    * name in the vending machine between parentheses. For instance, if the vending machine contains
    * five bottles of water, ten chocolates, and seven snacks, the summary description will be as
-   * follows. "water (5)\nchocolate (10)\nsnack (7)"
-   * If the vending machine is empty, this method returns an empty string ""
+   * follows. "water (5)\nchocolate (10)\nsnack (7)" If the vending machine is empty, this method
+   * returns an empty string ""
    * 
    * @param items      two dimensional array storing items within a vending machine where
    *                   items[i][0] represents the description of the item at index i and items[i][1]
@@ -235,8 +232,7 @@ public class VendingMachine {
         names[namessize] = items[i][0];
         amt[namessize] = 1;
         namessize = namessize + 1;
-      }
-      else {
+      } else {
         amt[index] = amt[index] + 1;
       }
     }
@@ -248,17 +244,18 @@ public class VendingMachine {
     }
     return output; // DONE
   }
-  
-  
-  /** 
+
+
+  /**
    * 
    * @param description item name
-   * @param names list of names
+   * @param names       list of names
    * @return int location
    */
   private static int listIterator(String description, String[] names) {
     for (int i = 0; i < names.length; i++) {
-      if (description.equals(names[i])) return i;
+      if (description.equals(names[i]))
+        return i;
     }
     return -1;
   }
